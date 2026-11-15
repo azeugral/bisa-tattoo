@@ -15,7 +15,7 @@
 <link rel="apple-touch-icon" href="assets/img/icon-180.png">
 <link rel="preload" href="assets/fonts/ultra-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/img/c/mago.webp" as="image">
-<link rel="stylesheet" href="assets/css/site.css?v=1">
+<link rel="stylesheet" href="assets/css/site.css?v=2">
 </head>
 <body>
 
@@ -122,21 +122,41 @@
 
 <section class="sec papel" id="marcar">
   <header class="cab">
-    <h2>Como marcar</h2>
-    <p>Tudo pelo WhatsApp, direto com o Bisa.</p>
+    <h2>Marcar tatuagem</h2>
+    <p>Preencha o básico e o pedido chega pronto no WhatsApp do Bisa. Ele responde com orçamento e datas.</p>
   </header>
-  <ol class="passos">
-    <li><b>Ideia</b><span>Escolha um flash, uma carta ou conte a sua ideia.</span></li>
-    <li><b>Lugar</b><span>Diga onde no corpo e o tamanho aproximado.</span></li>
-    <li><b>Desenho</b><span>O Bisa adapta o traço para encaixar em você.</span></li>
-    <li><b>Sessão</b><span>Data marcada em Marialva-PR.</span></li>
-  </ol>
-  <div class="pedido">
-    <p class="pedido-esc" id="escolha" hidden></p>
-    <a class="btn btn-ch" id="zap" href="https://wa.me/5544999953299" target="_blank" rel="noopener">Chamar no WhatsApp</a>
-    <a class="btn btn-ln" href="https://www.instagram.com/m/bisatattoo/" target="_blank" rel="noopener">Mandar Direct</a>
-    <p class="nota">Estúdio novo em Marialva · PR, endereço em breve.</p>
-  </div>
+  <form class="form" id="form" novalidate>
+    <label class="campo"><span>Seu nome</span><input name="nome" autocomplete="name" placeholder="Como o Bisa te chama?" required></label>
+    <fieldset class="campo"><legend>O que você quer</legend>
+      <div class="chips ch4">
+        <label><input type="radio" name="tipo" value="Flash das pastas" checked><span>Flash</span></label>
+        <label><input type="radio" name="tipo" value="Carta do tarot"><span>Carta do tarot</span></label>
+        <label><input type="radio" name="tipo" value="Desenho exclusivo"><span>Desenho exclusivo</span></label>
+        <label><input type="radio" name="tipo" value="Fechamento"><span>Fechamento</span></label>
+      </div>
+    </fieldset>
+    <fieldset class="campo"><legend>Cor</legend>
+      <div class="chips ch3">
+        <label><input type="radio" name="cor" value="Colorida" checked><span>Colorida</span></label>
+        <label><input type="radio" name="cor" value="Preto e cinza"><span>Preto e cinza</span></label>
+        <label><input type="radio" name="cor" value="Ainda não sei"><span>Não sei</span></label>
+      </div>
+    </fieldset>
+    <div class="duas">
+      <label class="campo"><span>Lugar do corpo</span><input name="local" placeholder="Ex.: antebraço"></label>
+      <label class="campo"><span>Tamanho</span>
+        <select name="tamanho"><option>Até 10 cm</option><option selected>10 a 15 cm</option><option>15 a 20 cm</option><option>Maior que 20 cm</option><option>Fechamento</option><option>Não sei</option></select>
+      </label>
+    </div>
+    <label class="campo"><span>Sua ideia</span><textarea name="ideia" rows="3" placeholder="O flash ou a carta que escolheu, ou a ideia que você tem"></textarea></label>
+    <label class="campo"><span>Quando fica bom</span>
+      <select name="quando"><option>O quanto antes</option><option selected>Nas próximas semanas</option><option>Daqui a um mês ou mais</option><option>Só quero orçamento</option></select>
+    </label>
+    <p class="erro" id="erro" hidden>Coloque seu nome para o Bisa saber com quem está falando.</p>
+    <button class="btn btn-ch enviar" type="submit">Enviar pelo WhatsApp</button>
+    <p class="priv">Abre o WhatsApp com a mensagem pronta. Nada fica salvo no site.</p>
+  </form>
+  <p class="nota">Estúdio novo em Marialva · PR, endereço em breve. Prefere o Instagram? <a href="https://www.instagram.com/m/bisatattoo/" target="_blank" rel="noopener">Mande um Direct</a>.</p>
 </section>
 </main>
 
@@ -152,6 +172,6 @@
   <div class="lb-nav"><button id="lbAnt" aria-label="Anterior">Anterior</button><button id="lbProx" aria-label="Próxima">Próxima</button></div>
 </div>
 
-<script src="assets/js/main.js?v=1"></script>
+<script src="assets/js/main.js?v=2"></script>
 </body>
 </html>

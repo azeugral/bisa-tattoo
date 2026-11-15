@@ -45,14 +45,25 @@ document.querySelectorAll('.filtros button').forEach(function(b){b.onclick=funct
 $('#verMais').onclick=function(){lim=999;desenha()};
 
 /* escolha -> mensagem */
-var zap=$('#zap'),esc=$('#escolha');
-function escolhe(txt){
-  var msg='Oi, Bisa! Vi seu site e quero tatuar '+txt+'. Posso te mandar onde e o tamanho?';
-  zap.href='https://wa.me/'+ZAP+'?text='+encodeURIComponent(msg);
-  esc.textContent='Sua escolha: '+txt;esc.hidden=false;
+var form=$('#form'),erro=$('#erro');
+function escolhe(tipo,txt){
+  var r=form.querySelector('input[name=tipo][value="'+tipo+'"]');if(r)r.checked=true;
+  form.ideia.value=txt;
   $('#marcar').scrollIntoView({behavior:'smooth'});
 }
-zap.href='https://wa.me/'+ZAP+'?text='+encodeURIComponent('Oi, Bisa! Vi seu site e quero marcar uma tattoo.');
+form.addEventListener('submit',function(e){
+  e.preventDefault();
+  var f=new FormData(form),nome=(f.get('nome')||'').trim();
+  if(!nome){erro.hidden=false;form.nome.focus();return}
+  erro.hidden=true;
+  var l=['Oi, Bisa! Sou *'+nome+'* e quero marcar uma tatuagem.','',
+    '*Pedido:* '+f.get('tipo'),'*Cor:* '+f.get('cor'),
+    '*Lugar do corpo:* '+((f.get('local')||'').trim()||'a definir'),
+    '*Tamanho:* '+f.get('tamanho'),'*Quando:* '+f.get('quando')];
+  var ideia=(f.get('ideia')||'').trim();if(ideia)l.push('','*Ideia:* '+ideia);
+  l.push('','(pedido enviado pelo site)');
+  window.open('https://wa.me/'+ZAP+'?text='+encodeURIComponent(l.join('\n')),'_blank','noopener');
+});
 
 /* tarot */
 var TAROT=[['louco','Louco'],['mago','O Mago'],['sacerdotisa','A Sacerdotisa'],['imperador','Imperador'],['papa','O Papa'],['mestre','Mestre'],
@@ -60,7 +71,7 @@ var TAROT=[['louco','Louco'],['mago','O Mago'],['sacerdotisa','A Sacerdotisa'],[
 var bar=$('#baralho');
 TAROT.forEach(function(c){var b=document.createElement('button');
   b.innerHTML='<img src="assets/img/c/'+c[0]+'.webp" alt="Carta '+c[1]+'" width="640" height="1200"><span>Quero '+c[1]+'</span>';
-  b.onclick=function(){escolhe('a carta '+c[1]+' do seu tarot')};bar.appendChild(b)});
+  b.onclick=function(){escolhe('Carta do tarot','A carta '+c[1]+' do seu tarot')};bar.appendChild(b)});
 
 /* folhas de flash */
 var FOLHAS=[['pasta1','Pasta 1'],['pasta2','Pasta 2'],['pasta3','Pasta 3'],['oriental','Oriental'],['ceifador','Ceifadores e rosas'],['manga','Mangá'],
@@ -69,7 +80,7 @@ var fo=$('#folhas');
 FOLHAS.forEach(function(f,i){var d=document.createElement('div');d.className='folha';
   d.innerHTML='<figure><img src="assets/img/f/'+f[0]+'.webp" alt="Folha de flash: '+f[1]+'"></figure><button class="btn btn-ln">Quero desta folha</button>';
   d.querySelector('figure').onclick=function(){abre(FOLHAS.map(function(x){return 'assets/img/f/'+x[0]+'.webp'}),i)};
-  d.querySelector('button').onclick=function(){escolhe('um flash da folha '+f[1])};fo.appendChild(d)});
+  d.querySelector('button').onclick=function(){escolhe('Flash das pastas','Um flash da folha '+f[1]+' (mando qual por aqui)')};fo.appendChild(d)});
 
 /* fechamentos */
 var FE=['antebraco','fech1','fech2','fech3','fech4','fech5'],fe=$('#fech');
@@ -89,6 +100,6 @@ document.addEventListener('keydown',function(e){if(lb.hidden)return;if(e.key==='
 /* subida leve ao rolar */
 if('IntersectionObserver' in window){
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
-  document.querySelectorAll('.cab,.premios,.sobre,.passos,.pedido').forEach(function(el){el.classList.add('revela');io.observe(el)});
+  document.querySelectorAll('.cab,.premios,.sobre,.form').forEach(function(el){el.classList.add('revela');io.observe(el)});
 }
 })();

@@ -125,15 +125,30 @@ h1,h2,.nome,.marca span,.rod-marca{font-family:Ultra,Georgia,serif;font-weight:4
 .sobre p+p{margin-top:14px}
 .sobre p{color:#e4dac3}
 
-/* marcar */
-.passos{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:1100px;margin:0 auto;counter-reset:p}
-.passos li{border:2px solid var(--tinta);background:var(--osso);padding:24px 18px;text-align:center;display:flex;flex-direction:column;gap:8px}
-.passos b{font-family:Ultra,serif;font-weight:400;font-size:24px}
-.passos span{font-size:15px;line-height:1.45}
-.pedido{display:flex;flex-direction:column;align-items:center;gap:14px;max-width:420px;margin:40px auto 0}
-.pedido .btn{width:100%}
-.pedido-esc{text-align:center;font-weight:700;border:2px dashed var(--laranja2);padding:12px 16px;width:100%}
-.nota{font-size:14px;text-align:center;opacity:.8}
+/* marcar: pedido que vira mensagem no WhatsApp */
+.form{max-width:680px;margin:0 auto;background:var(--osso);border:2px solid var(--tinta);box-shadow:10px 10px 0 var(--tinta);padding:clamp(22px,3.4vw,40px);display:grid;gap:22px}
+.campo{display:grid;gap:8px;border:0;min-width:0}
+.campo>span,.campo legend{font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+.campo>span{margin-bottom:0}
+input,select,textarea{width:100%;font:400 16px/1.4 Archivo,system-ui,sans-serif;color:var(--tinta);background:#fbf7ec;border:1.5px solid rgba(23,19,15,.4);border-radius:0;padding:13px 14px;-webkit-appearance:none;appearance:none;transition:border-color .3s var(--ease),box-shadow .3s var(--ease)}
+select{background-image:linear-gradient(45deg,transparent 50%,var(--tinta) 50%),linear-gradient(-45deg,transparent 50%,var(--tinta) 50%);background-position:calc(100% - 20px) 55%,calc(100% - 14px) 55%;background-size:6px 6px;background-repeat:no-repeat;padding-right:38px}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--tinta);box-shadow:4px 4px 0 var(--laranja)}
+textarea{resize:vertical;min-height:96px}
+.chips{display:grid;gap:8px}
+.ch4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.ch3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.chips label{position:relative;cursor:pointer;display:flex}
+.chips input{position:absolute;opacity:0;width:1px;height:1px}
+.chips span{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;min-height:48px;font-weight:700;font-size:12px;line-height:1.2;letter-spacing:.06em;text-transform:uppercase;padding:10px 8px;border:1.5px solid rgba(23,19,15,.4);transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease),transform .3s var(--ease)}
+.chips label:hover span{border-color:var(--tinta)}
+.chips label:active span{transform:scale(.97)}
+.chips input:checked+span{background:var(--tinta);color:var(--papel);border-color:var(--tinta)}
+.chips input:focus-visible+span{outline:2px dashed var(--laranja2);outline-offset:2px}
+.duas{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+.erro{color:var(--laranja2);font-weight:700;text-align:center}
+.enviar{width:100%;min-height:58px}
+.priv{margin-top:-8px;font-size:13px;text-align:center;opacity:.75}
+.nota{max-width:680px;margin:28px auto 0;font-size:14px;text-align:center;opacity:.85}
 
 /* rodapé */
 .rod{background:var(--tinta);color:#d9cfb8;text-align:center;padding:56px var(--gut) 40px;display:flex;flex-direction:column;gap:10px;font-size:15px}
@@ -173,7 +188,7 @@ h1,h2,.nome,.marca span,.rod-marca{font-family:Ultra,Georgia,serif;font-weight:4
   .baralho{grid-template-columns:repeat(3,1fr)}
   .folhas,.fech{grid-template-columns:repeat(2,1fr)}
   .premios,.sobre{grid-template-columns:minmax(0,460px)}
-  .passos{grid-template-columns:1fr 1fr}
+  .ch4{grid-template-columns:1fr 1fr}
   .sobre-tx{text-align:center}
 }
 @media (max-width:520px){
@@ -183,9 +198,11 @@ h1,h2,.nome,.marca span,.rod-marca{font-family:Ultra,Georgia,serif;font-weight:4
   .folhas,.fech{grid-template-columns:1fr}
   .folhas{max-width:420px}
   .fech{grid-template-columns:repeat(2,1fr)}
-  .blocos li,.passos li{padding:16px 10px}
-  .blocos b,.passos b{font-size:19px}
-  .blocos span,.passos span{font-size:14px}
+  .blocos li{padding:16px 10px}
+  .blocos b{font-size:19px}
+  .blocos span{font-size:14px}
+  .duas{grid-template-columns:1fr}
+  .chips span{font-size:11px;letter-spacing:.04em}
   .filtros{display:grid;grid-template-columns:1fr 1fr;max-width:420px}
   .filtros button{padding:0 8px;font-size:12px}
 }
