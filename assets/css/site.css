@@ -193,6 +193,7 @@ textarea{resize:vertical;min-height:96px}
   .grade{grid-template-columns:repeat(2,1fr)}
   .baralho{grid-template-columns:repeat(3,1fr)}
   .folhas,.fech{grid-template-columns:repeat(2,1fr)}
+  .folhas .folha:last-child:nth-child(odd){grid-column:1/-1;justify-self:center;width:calc(50% - clamp(14px,2vw,28px)/2)}
   .premios,.sobre{grid-template-columns:minmax(0,460px)}
   .ch4{grid-template-columns:1fr 1fr}
   .passos{grid-template-columns:1fr 1fr}
@@ -202,9 +203,10 @@ textarea{resize:vertical;min-height:96px}
   body{font-size:16px}
   .cab p{font-size:16px}
   .baralho{grid-template-columns:repeat(2,1fr)}
-  .folhas,.fech{grid-template-columns:1fr}
-  .folhas{max-width:420px}
-  .fech{grid-template-columns:repeat(2,1fr)}
+  .folhas,.fech{grid-template-columns:repeat(2,1fr);gap:12px}
+  .folhas .folha:last-child:nth-child(odd){width:calc(50% - 6px)}
+  .folha{box-shadow:4px 4px 0 var(--tinta)}
+  .folha .btn{min-height:44px;padding:0 6px;font-size:11px;letter-spacing:.04em}
   .blocos li,.passos li{padding:16px 10px}
   .blocos b,.passos b{font-size:19px}
   .blocos span,.passos span{font-size:14px}
