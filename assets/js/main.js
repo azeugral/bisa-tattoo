@@ -36,7 +36,7 @@ function desenha(){
   l.slice(0,lim).forEach(function(t,i){
     var b=document.createElement('button');b.setAttribute('aria-label','Ampliar trabalho');
     b.innerHTML='<img src="'+t.s+'" alt="Tatuagem de Bisa Tattoo" width="900" height="1125">';
-    b.onclick=function(){abre(l.map(function(x){return x.s}),i)};grade.appendChild(b)});
+    b.onclick=function(){abre(l.map(function(x){return x.s}),i,'Desenho exclusivo','Uma tattoo como a do trabalho nº '+(todos.indexOf(l[i])+1)+' do site')};grade.appendChild(b)});
   $('#verMais').hidden=l.length<=lim;
 }
 fetch('assets/trabalhos.json').then(function(r){return r.json()}).then(function(j){todos=j;desenha()});
@@ -79,18 +79,20 @@ var FOLHAS=[['pasta1','Pasta 1'],['pasta2','Pasta 2'],['pasta3','Pasta 3'],['ori
 var fo=$('#folhas');
 FOLHAS.forEach(function(f,i){var d=document.createElement('div');d.className='folha';
   d.innerHTML='<figure><img src="assets/img/f/'+f[0]+'.webp" alt="Folha de flash: '+f[1]+'"></figure><button class="btn btn-ln">Quero desta folha</button>';
-  d.querySelector('figure').onclick=function(){abre(FOLHAS.map(function(x){return 'assets/img/f/'+x[0]+'.webp'}),i)};
+  d.querySelector('figure').onclick=function(){abre(FOLHAS.map(function(x){return 'assets/img/f/'+x[0]+'.webp'}),i,'Flash das pastas',function(k){return 'Um flash da folha '+FOLHAS[k][1]+' (mando qual por aqui)'})};
   d.querySelector('button').onclick=function(){escolhe('Flash das pastas','Um flash da folha '+f[1]+' (mando qual por aqui)')};fo.appendChild(d)});
 
 /* fechamentos */
 var FE=['antebraco','fech1','fech2','fech3','fech4','fech5'],fe=$('#fech');
 FE.forEach(function(f,i){var b=document.createElement('button');b.setAttribute('aria-label','Ampliar fechamento');
   b.innerHTML='<img src="assets/img/f/'+f+'.webp" alt="Fechamento de braço desenhado pelo Bisa">';
-  b.onclick=function(){abre(FE.map(function(x){return 'assets/img/f/'+x+'.webp'}),i)};fe.appendChild(b)});
+  b.onclick=function(){abre(FE.map(function(x){return 'assets/img/f/'+x+'.webp'}),i,'Fechamento',function(k){return 'O fechamento nº '+(k+1)+' do site'})};fe.appendChild(b)});
 
 /* lightbox */
 var lb=$('#lb'),lbImg=$('#lbImg');
-function abre(l,i){lbLista=l;lbI=i;lbImg.src=l[i];lb.hidden=false;document.body.style.overflow='hidden'}
+var lbTipo='',lbTxt=null;
+function abre(l,i,tipo,txt){lbLista=l;lbI=i;lbTipo=tipo;lbTxt=txt;lbImg.src=l[i];lb.hidden=false;document.body.style.overflow='hidden'}
+$('#lbQuero').onclick=function(){var t=typeof lbTxt==='function'?lbTxt(lbI):lbTxt;fecha();escolhe(lbTipo,t)};
 function fecha(){lb.hidden=true;document.body.style.overflow=''}
 function anda(d){lbI=(lbI+d+lbLista.length)%lbLista.length;lbImg.src=lbLista[lbI]}
 $('.lb-x').onclick=fecha;$('#lbAnt').onclick=function(){anda(-1)};$('#lbProx').onclick=function(){anda(1)};
